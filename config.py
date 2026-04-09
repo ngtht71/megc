@@ -10,17 +10,17 @@ PROJECT_ROOT = Path(__file__).parent
 # Dataset paths configuration
 DATASET_CONFIG = {
     "casme2": {
-        "crop_dir": os.environ.get("CASME2_CROP_DIR", "/path/to/casme2/Cropped/Cropped"),
-        "metadata_file": os.environ.get("CASME2_METADATA", "/path/to/CASME2-coding-20140508.xlsx"),
+        "crop_dir": os.environ.get("CASME2_CROP_DIR", "dataset/casme2/Cropped"),
+        "metadata_file": os.environ.get("CASME2_METADATA", "dataset/casme2/CASME2-coding-20140508.xlsx"),
     },
     "samm": {
-        "crop_dir": os.environ.get("SAMM_CROP_DIR", "/path/to/samm/SAMM_Cropped"),
-        "metadata_file": os.environ.get("SAMM_METADATA", "/path/to/SAMM_Micro_FACS_Codes_v2.xlsx"),
+        "crop_dir": os.environ.get("SAMM_CROP_DIR", "dataset/samm/SAMM_Cropped"),
+        "metadata_file": os.environ.get("SAMM_METADATA", "dataset/samm/SAMM_Micro_FACS_Codes_v2.xlsx"),
     },
     "smic": {
-        "crop_dir": os.environ.get("SMIC_CROP_DIR", "/path/to/smic/SMIC_all_cropped/HS"),
+        "crop_dir": os.environ.get("SMIC_CROP_DIR", "dataset/smic/SMIC_all_cropped"),
     },
-    "qa_file": os.environ.get("QA_FILE", "/path/to/me_vqa_samm_casme2_smic_v2.jsonl"),
+    "qa_file": os.environ.get("QA_FILE", "me_vqa_samm_casme2_smic_v2.jsonl"),
     "landmarks_predictor": os.environ.get("LANDMARKS_PREDICTOR", "./shape_predictor_68_face_landmarks.dat"),
 }
 
@@ -37,7 +37,7 @@ MODEL_CONFIG = {
     },
     "clip_alignment": {
         "init_temp": 0.07,
-        "epochs": 20,
+        "epochs": 50,
         "batch_size": 4,
         "learning_rate": 5e-5,
         "weight_decay": 1e-4,
@@ -45,7 +45,7 @@ MODEL_CONFIG = {
     "moe_model": {
         "embed_dim": 512,
         "num_experts": 4,
-        "epochs": 10,
+        "epochs": 20,
         "batch_size": 8,
         "learning_rate": 3e-5,
         "weight_decay": 1e-4,

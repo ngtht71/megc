@@ -26,6 +26,9 @@ from models.moe_model import HierarchicalMoE
 from utils.prompt_builder import PromptBuilder
 from utils.inference import compute_multi_task_loss
 
+# Import evaluation utilities
+from evaluate import run_evaluation
+
 
 def set_seed(seed: int = 42):
     """Set random seeds for reproducibility."""
@@ -248,6 +251,12 @@ def main():
     # from data_loader import load_all_datasets
     # data_infos = load_all_datasets(
     #     qa_file=DATASET_CONFIG["qa_file"],
+    #     casme2_metadata=DATASET_CONFIG["casme2"]["metadata_file"],
+    #     casme2_crop_dir=DATASET_CONFIG["casme2"]["crop_dir"],
+    #     samm_metadata=DATASET_CONFIG["samm"]["metadata_file"],
+    #     samm_crop_dir=DATASET_CONFIG["samm"]["crop_dir"],
+    #     smic_crop_dir=DATASET_CONFIG["smic"]["crop_dir"],
+    #     landmarks_predictor=DATASET_CONFIG["landmarks_predictor"]
     # )
 
     # For now, create placeholder (user needs to implement data loading)
@@ -375,7 +384,27 @@ def main():
     )
 
     print("\n" + "="*60)
-    print("Training completed successfully!")
+    print("Evaluation on validation set")
+    print("="*60)
+
+    model_path = os.path.join(TRAINING_CONFIG["checkpoint_dir"], "best_moe_megc.pth")
+
+    try:
+        run_evaluation(
+            model_path=model_path,
+            data_infos=val_data,
+            split='validation',
+            batch_size=MODEL_CONFIG["moe_model"]["batch_size"],
+            device=device
+        )
+        print("\nEvaluation completed successfully!")
+    except Exception as e:
+        print(f"\nEvaluation encountered an error: {e}")
+        print("You can manually run evaluation with:")
+        print(f"  python evaluate.py --model {model_path} --split validation")
+
+    print("\n" + "="*60)
+    print("Training and evaluation completed successfully!")
     print("="*60)
 
 

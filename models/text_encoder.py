@@ -39,4 +39,4 @@ class TextEncoder(nn.Module):
         ).to(self.device)
 
         outputs = self.model.get_text_features(**inputs)
-        return outputs
+        return outputs.pooler_output

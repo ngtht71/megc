@@ -1,4 +1,4 @@
-# MEGC: Micro-Expression and Emotion Recognition with VQA
+# MEGC: Micro-Expression Grand Challenge 2026
 
 This repository contains a hierarchical Mixture of Experts (MoE) architecture for Visual Question Answering (VQA) on micro-expressions from the MEGC datasets (CASME2, SAMM, SMIC).
 
@@ -28,8 +28,40 @@ The project implements a two-stage training pipeline:
 megc/
 ├── config.py                 # Configuration for paths and model parameters
 ├── main.py                   # Main training script
+├── data_loader.py            # Data loading utilities
 ├── requirements.txt          # Python dependencies
 ├── README.md                 # This file
+├── GETTING_STARTED.md        # Quick start guide
+├── checkpoints/              # Saved model checkpoints (created after training)
+│   ├── best_visual_encoder.pth
+│   ├── best_moe_megc.pth
+│   ├── clip_training_curves.png
+│   └── moe_training_curves.png
+├── dataset/                  # Raw datasets (download separately)
+│   ├── casme2/
+│   │   ├── Cropped/          # Cropped face images
+│   │   │   ├── sub01/
+│   │   │   ├── sub02/
+│   │   │   └── ...
+│   │   └── CASME2-coding-20140508.xlsx
+│   ├── samm/
+│   │   ├── SAMM_Cropped/     # Cropped face images
+│   │   │   ├── 001/
+│   │   │   ├── 002/
+│   │   │   └── ...
+│   │   └── SAMM_Micro_FACS_Codes_v2.xlsx
+│   ├── smic/
+│   │   ├── SMIC_all_cropped/
+│   │   │   └── HS/           # Cropped face images
+│   │   │       ├── s1/
+│   │   │       ├── s2/
+│   │   │       └── ...
+│   │   └── (metadata from QA file)
+│   └── unseen/               # Unseen test videos (optional)
+│       ├── ME_VQA_MEGC_2025_Test/
+│       └── me_vqa_test_to_answer.jsonl
+├── me_vqa_samm_casme2_smic_v2.jsonl  # QA annotations (download)
+├── shape_predictor_68_face_landmarks.dat  # Facial landmarks model (download)
 ├── data/
 │   ├── __init__.py
 │   ├── preprocessing.py      # Optical flow, AU extraction, landmarks
@@ -70,8 +102,103 @@ pip install -r requirements.txt
 # Download facial landmarks predictor
 wget https://github.com/italojs/facial-landmarks-recognition/raw/refs/heads/master/shape_predictor_68_face_landmarks.dat
 
-# Download QA dataset (example)
+# Download QA dataset
 wget https://megc2026.github.io/files/me_vqa_samm_casme2_smic_v2.jsonl
+```
+
+## Dataset Setup
+
+This section explains how to download and organize the datasets for training.
+
+### Step 1: Download and Setup Datasets
+
+First, create the dataset directory structure:
+
+```bash
+# Create dataset directory
+mkdir -p dataset/{casme2,samm,smic,unseen}
+
+# Download QA annotations (place in root directory)
+wget https://megc2026.github.io/files/me_vqa_samm_casme2_smic_v2.jsonl
+```
+
+Then download the three micro-expression datasets from their official sources:
+
+#### CASME II Dataset
+To download the dataset, please visit: [CASME II Official Website](https://melabipcas.github.io/melab/en/db/casme2.html). Download and fill in the license agreement form, submit throuth the website.
+
+#### SAMM Dataset
+To download the dataset, please visit: [SAMM Official Website](http://www2.docm.mmu.ac.uk/STAFF/M.Yap/dataset.php). Download and fill in the license agreement form, email to M.Yap@mmu.ac.uk with email subject: SAMM videos.
+
+#### SMIC Dataset
+To download the dataset, please visit: [SMIC Official Website](https://www.oulu.fi/cmvs/node/41319). Download and fill in the license agreement form (please indicate which version/subset you need), email to Xiaobai.Li@oulu.fi.
+
+#### Unseen Test Data (Optional)
+To obtain the test sets, please required to download and fill in the license agreement forms for the SAMM Challenge dataset and CAS(ME)3 in [MEGC 2026 Challenge website](https://megc2026.github.io/challenge.html), and upload them to the organisers through a query link.
+
+### Step 2: Organize Folder Structure
+
+After downloading, organize your datasets as follows:
+
+```bash
+# Create dataset directory
+mkdir -p dataset
+
+# CASME II
+mkdir -p dataset/casme2
+
+# SAMM
+mkdir -p dataset/samm
+
+# SMIC
+mkdir -p dataset/smic
+
+# Unseen test data (optional)
+mkdir -p dataset/unseen
+```
+
+### Step 3: Verify Dataset Organization
+
+Your dataset folder should look like:
+
+```
+dataset/
+├── casme2/
+│   ├── Cropped/
+│   │   ├── sub01/
+│   │   │   ├── EP02_01f/
+│   │   │   │   ├── reg_img46.jpg
+│   │   │   │   ├── reg_img47.jpg
+│   │   │   │   └── ...
+│   │   │   ├── EP02_02f/
+│   │   │   └── ...
+│   │   └── CASME2-coding-20140508.xlsx
+├── samm/
+│   ├── SAMM_Cropped/
+│   │   ├── 006/
+│   │   │   ├── 006_1_2/
+│   │   │   │   ├── crop_5562.jpg
+│   │   │   │   ├── crop_5563.jpg
+│   │   │   │   └── ...
+│   │   │   └── ...
+│   │   └── SAMM_Micro_FACS_Codes_v2.xlsx
+├── smic/
+│   ├── SMIC_all_cropped/
+│   │   ├── s1/
+│   │   │   ├── micro/
+│   │   │   │   ├── positive/
+│   │   │   │   ├── negative/
+│   │   │   │   └── surprise/
+│   │   │   └── ...
+│   │   └── ...
+├── unseen/ (optional)
+│   ├── ME_VQA_MEGC_2025_Test/
+│   │   ├── CAS-1/
+│   │   ├── CAS-2/
+│   │   └── ...
+│   ├── me_vqa_samm_v2_test_to_answer.jsonl
+│   └── me_vqa_casme3_v2_test_to_answer.jsonl
+└── me_vqa_samm_casme2_smic_v2.jsonl
 ```
 
 ## Configuration
@@ -81,18 +208,30 @@ Edit `config.py` to set your dataset paths and training parameters:
 ```python
 DATASET_CONFIG = {
     "casme2": {
-        "crop_dir": "/path/to/casme2/Cropped/Cropped",
-        "metadata_file": "/path/to/CASME2-coding-20140508.xlsx",
+        "crop_dir": "dataset/casme2/Cropped",
+        "metadata_file": "dataset/casme2/CASME2-coding-20140508.xlsx",
     },
     "samm": {
-        "crop_dir": "/path/to/samm/SAMM_Cropped",
-        "metadata_file": "/path/to/SAMM_Micro_FACS_Codes_v2.xlsx",
+        "crop_dir": "dataset/samm/SAMM_Cropped",
+        "metadata_file": "dataset/samm/SAMM_Micro_FACS_Codes_v2.xlsx",
     },
     "smic": {
-        "crop_dir": "/path/to/smic/SMIC_all_cropped/HS",
+        "crop_dir": "dataset/smic/SMIC_all_cropped",
     },
-    "qa_file": "/path/to/me_vqa_samm_casme2_smic_v2.jsonl",
+    "qa_file": "me_vqa_samm_casme2_smic_v2.jsonl",
     "landmarks_predictor": "./shape_predictor_68_face_landmarks.dat",
+}
+```
+
+Or use absolute paths if datasets are stored elsewhere:
+
+```python
+DATASET_CONFIG = {
+    "casme2": {
+        "crop_dir": "/absolute/path/to/CASME2/Cropped",
+        "metadata_file": "/absolute/path/to/CASME2-coding-20140508.xlsx",
+    },
+    # ... rest of config
 }
 ```
 
@@ -144,63 +283,54 @@ data_info = {
 }
 ```
 
-## Training
+## Pre-trained Models
 
-### Run Training Pipeline
+We provide pre-trained checkpoints for both stages of the model trained on CASME2, SAMM, and SMIC datasets.
 
-```bash
-python main.py
-```
+### Download Pre-trained Checkpoints
 
-The training pipeline will:
+You can download the pre-trained models from Google Drive:
 
-1. **Stage 1**: Train CLIP alignment model (20 epochs by default)
-   - Pre-trains visual encoder using contrastive learning
-   - Saves best checkpoint to `checkpoints/best_visual_encoder.pth`
+**[Download Pre-trained Models](https://drive.google.com/drive/folders/1pCcKMU3QvcM9APbDjV-zfgesc2sqyy2U?usp=sharing)**
 
-2. **Stage 2**: Train Hierarchical MoE model (10 epochs by default)
-   - Uses pre-trained visual encoder
-   - Trains hierarchical mixture of experts
-   - Saves best model to `checkpoints/best_moe_megc.pth`
+The folder contains:
+- `best_visual_encoder.pth` - Pre-trained CLIP visual encoder (Stage 1)
+- `best_moe_megc.pth` - Trained Hierarchical MoE model (Stage 2)
 
-### Customize Training
+### Setup Pre-trained Models
 
-Edit training parameters in `config.py`:
+1. **Download the checkpoint files** from the Google Drive link above
 
-```python
-MODEL_CONFIG = {
-    "clip_alignment": {
-        "epochs": 20,
-        "batch_size": 4,
-        "learning_rate": 5e-5,
-        "weight_decay": 1e-4,
-    },
-    "moe_model": {
-        "epochs": 10,
-        "batch_size": 8,
-        "learning_rate": 3e-5,
-        "weight_decay": 1e-4,
-    },
-}
-```
+2. **Create checkpoints directory and copy files**:
+   ```bash
+   mkdir -p checkpoints
+   # Download and place the .pth files into checkpoints/
+   ~/checkpoints/best_visual_encoder.pth
+   ~/checkpoints/best_moe_megc.pth
+   ```
 
-## Inference
+3. **Verify file structure**:
+   ```bash
+   ls -lh checkpoints/
+   # Expected output:
+   # best_visual_encoder.pth
+   # best_moe_megc.pth
+   # clip_training_curves.png
+   # moe_training_curves.png
+   ```
 
-### Load and Use Trained Model
+## Evaluation & Metrics
 
-```python
-import torch
-from models.moe_model import HierarchicalMoE
+After training your model, evaluation metrics are automatically computed on the validation set!
 
-device = "cuda" if torch.cuda.is_available() else "cpu"
-model = torch.load("checkpoints/best_moe_megc.pth", map_location=device, weights_only=False)
-model.eval()
+### Metrics Explanation
 
-# Use model for predictions
-with torch.no_grad():
-    logits = model.predict(apex, flow, roi, question, candidate_texts)
-    predictions = torch.argmax(logits, dim=1)
-```
+- **UF1 (Coarse)**: Unweighted F1-Score for Coarse Emotion Classification (positive/negative/surprise)
+- **UAR (Coarse)**: Unweighted Recall for Coarse Emotion (macro-averaged)
+- **UF1 (Fine-grained)**: Unweighted F1-Score for Fine-grained Emotion (7 classes)
+- **UAR (Fine-grained)**: Unweighted Recall for Fine-grained Emotion
+- **BLEU**: Bilingual Evaluation Understudy - measures text generation quality
+- **ROUGE**: Recall-Oriented Understudy for Gisting - measures text matching quality
 
 ### VQA Tasks Supported
 
@@ -228,7 +358,7 @@ Pre-trains visual encoder using:
 4 specialized experts with dynamic routing:
 
 1. **Action Unit Expert**: ROI self-attention + cross-attention with question
-2. **Emotion Expert**: Transformer-based holistic feature fusion
+2. **Emotion Holistic Expert**: Transformer-based holistic feature fusion
 3. **Spatial Expert**: Positional embedding-aware ROI analysis
 4. **Relation Expert**: Graph-based reasoning across experts
 
@@ -248,52 +378,61 @@ checkpoints/
 
 ## Results & Metrics
 
-The model is evaluated on:
+The pre-trained model is evaluated on CASME2, SAMM, and SMIC datasets:
+
+### Performance Metrics
+
+The model is evaluated using:
 - **Unweighted F1 Score (UF1)**: Macro-averaged F1 across classes
 - **Unweighted Accuracy Rate (UAR)**: Macro-averaged recall across classes
+- **BLEU**: Bilingual Evaluation Understudy for text generation quality
+- **ROUGE**: Recall-Oriented Understudy for Gisting Evaluation for text matching quality
 
-## Citation
+### Detailed Evaluation Results
 
-If you use this work, please cite:
+See **[EVALUATION_RESULTS.md](EVALUATION_RESULTS.md)** for comprehensive metrics including:
+- Validation and test set results for each dataset (CASME2, SAMM, SMIC)
+- Task-wise breakdown (AU detection, coarse emotion, fine-grained emotion)
+- Per-class performance metrics
+- Computational performance analysis
+- Detailed comparison across different methods
 
-```bibtex
-@article{megc2026,
-  title={Micro-Expression and Emotion Recognition with Hierarchical Mixture of Experts},
-  year={2026}
-}
-```
+### Troubleshooting
 
-## Troubleshooting
-
-### CUDA Out of Memory
+#### CUDA Out of Memory
 
 Reduce batch size in `config.py`:
 ```python
 "batch_size": 4  # Try 2 or 1
 ```
 
-### Model Not Converging
+#### Model Checkpoint Not Found
 
-- Increase learning rate gradually
-- Check dataset balance
-- Ensure all data paths are correct
+If you get an error saying checkpoint file is not found:
 
-### Missing Dependencies
+1. Make sure you downloaded the files from [Google Drive](https://drive.google.com/drive/folders/1pCcKMU3QvcM9APbDjV-zfgesc2sqyy2U?usp=sharing)
+2. Place them in the `checkpoints/` directory
+3. Verify file paths match:
+   ```bash
+   ls -lh checkpoints/
+   ```
+
+#### Missing Dependencies
 
 Reinstall with verbose output:
 ```bash
 pip install -r requirements.txt -v
 ```
 
-## References
+#### Data Loading Errors
 
-- [CLIP: Learning Transferable Models for Computational Linguistics](https://arxiv.org/abs/2103.00020)
-- [Vision Transformer (ViT)](https://arxiv.org/abs/2010.11929)
-- [Mixture of Experts](https://arxiv.org/abs/2002.30057)
-
-## License
-
-This project is provided for research and educational purposes.
+Make sure dataset paths are correctly configured in `config.py`:
+```bash
+# Verify paths exist
+ls -d dataset/casme2/Cropped/sub* | head -3
+ls -d dataset/samm/SAMM_Cropped/* | head -3
+ls -d dataset/smic/SMIC_all_cropped/s* | head -3
+```
 
 ## Support
 
@@ -302,7 +441,3 @@ For issues or questions, please check:
 2. All required files are downloaded
 3. CUDA/GPU is properly configured
 4. Python and dependency versions match requirements
-
-## Contributing
-
-Contributions are welcome! Please follow the existing code structure and style.

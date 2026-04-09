@@ -10,3 +10,5 @@ matplotlib
 scikit-learn
 Pillow
 tqdm
+nltk>=3.8
+rouge-score>=0.1.2
