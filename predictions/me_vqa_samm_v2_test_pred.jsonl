@@ -1,0 +1,35 @@
+{"video_id": "samm_test_SAMM-1_1", "video": "SAMM-1", "question": "What is the coarse expression class?", "answer": "negative"}
+{"video_id": "samm_test_SAMM-1_2", "video": "SAMM-1", "question": "What is the fine-grained expression class?", "answer": "anger"}
+{"video_id": "samm_test_SAMM-1_3", "video": "SAMM-1", "question": "What is the action unit?", "answer": "lip corner puller"}
+{"video_id": "samm_test_SAMM-1_4", "video": "SAMM-1", "question": "Is the action unit cheek raiser shown on the face?", "answer": "yes"}
+{"video_id": "samm_test_SAMM-1_5", "video": "SAMM-1", "question": "Please analyse the micro-expression shown in this video in detail.", "answer": "The observed facial movement corresponds to action unit lip corner depressor, which is associated with anger and an overall negative emotion."}
+{"video_id": "samm_test_SAMM-2_1", "video": "SAMM-2", "question": "What is the coarse expression class?", "answer": "negative"}
+{"video_id": "samm_test_SAMM-2_2", "video": "SAMM-2", "question": "What is the fine-grained expression class?", "answer": "anger"}
+{"video_id": "samm_test_SAMM-2_3", "video": "SAMM-2", "question": "What are the action units?", "answer": "lip corner puller, lip corner depressor"}
+{"video_id": "samm_test_SAMM-2_4", "video": "SAMM-2", "question": "Is the action unit cheek raiser shown on the face?", "answer": "yes"}
+{"video_id": "samm_test_SAMM-2_5", "video": "SAMM-2", "question": "Provide a detailed analysis of the micro-expression observed in this clip.", "answer": "The observed facial movement corresponds to action unit lip corner depressor, which is associated with anger and an overall negative emotion."}
+{"video_id": "samm_test_SAMM-3_1", "video": "SAMM-3", "question": "What is the coarse expression class?", "answer": "negative"}
+{"video_id": "samm_test_SAMM-3_2", "video": "SAMM-3", "question": "What is the fine-grained expression class?", "answer": "anger"}
+{"video_id": "samm_test_SAMM-3_3", "video": "SAMM-3", "question": "What is the action unit?", "answer": "lip corner puller"}
+{"video_id": "samm_test_SAMM-3_4", "video": "SAMM-3", "question": "Is the action unit lip corner puller shown on the face?", "answer": "yes"}
+{"video_id": "samm_test_SAMM-3_5", "video": "SAMM-3", "question": "Please analyse the micro-expression shown in this video in detail.", "answer": "The observed facial movement corresponds to action unit lip tightener, which is associated with anger and an overall surprise emotion."}
+{"video_id": "samm_test_SAMM-4_1", "video": "SAMM-4", "question": "What is the coarse expression class?", "answer": "negative"}
+{"video_id": "samm_test_SAMM-4_2", "video": "SAMM-4", "question": "What is the fine-grained expression class?", "answer": "anger"}
+{"video_id": "samm_test_SAMM-4_3", "video": "SAMM-4", "question": "What are the action units?", "answer": "lip corner puller, lip corner depressor"}
+{"video_id": "samm_test_SAMM-4_4", "video": "SAMM-4", "question": "Is the action unit upper lip raiser shown on the face?", "answer": "yes"}
+{"video_id": "samm_test_SAMM-4_5", "video": "SAMM-4", "question": "Provide a detailed analysis of the micro-expression observed in this clip.", "answer": "The observed facial movement corresponds to action unit lip corner depressor, which is associated with anger and an overall negative emotion."}
+{"video_id": "samm_test_SAMM-5_1", "video": "SAMM-5", "question": "What is the coarse expression class?", "answer": "negative"}
+{"video_id": "samm_test_SAMM-5_2", "video": "SAMM-5", "question": "What is the fine-grained expression class?", "answer": "anger"}
+{"video_id": "samm_test_SAMM-5_3", "video": "SAMM-5", "question": "What is the action unit?", "answer": "lip corner puller"}
+{"video_id": "samm_test_SAMM-5_4", "video": "SAMM-5", "question": "Is the action unit cheek raiser shown on the face?", "answer": "no"}
+{"video_id": "samm_test_SAMM-5_5", "video": "SAMM-5", "question": "Provide a detailed analysis of the micro-expression observed in this clip.", "answer": "The observed facial movement corresponds to action unit lip corner depressor, which is associated with anger and an overall negative emotion."}
+{"video_id": "samm_test_SAMM-6_1", "video": "SAMM-6", "question": "What is the coarse expression class?", "answer": "negative"}
+{"video_id": "samm_test_SAMM-6_2", "video": "SAMM-6", "question": "What is the fine-grained expression class?", "answer": "anger"}
+{"video_id": "samm_test_SAMM-6_3", "video": "SAMM-6", "question": "What is the action unit?", "answer": "lip corner puller"}
+{"video_id": "samm_test_SAMM-6_4", "video": "SAMM-6", "question": "Is the action unit lid tightener shown on the face?", "answer": "yes"}
+{"video_id": "samm_test_SAMM-6_5", "video": "SAMM-6", "question": "Please analyse the micro-expression shown in this video in detail.", "answer": "The observed facial movement corresponds to action unit lid tightener, which is associated with anger and an overall negative emotion."}
+{"video_id": "samm_test_SAMM-7_1", "video": "SAMM-7", "question": "What is the coarse expression class?", "answer": "negative"}
+{"video_id": "samm_test_SAMM-7_2", "video": "SAMM-7", "question": "What is the fine-grained expression class?", "answer": "anger"}
+{"video_id": "samm_test_SAMM-7_3", "video": "SAMM-7", "question": "What is the action unit?", "answer": "lip corner puller"}
+{"video_id": "samm_test_SAMM-7_4", "video": "SAMM-7", "question": "Is the action unit upper lip raiser shown on the face?", "answer": "yes"}
+{"video_id": "samm_test_SAMM-7_5", "video": "SAMM-7", "question": "Please analyse the micro-expression shown in this video in detail.", "answer": "The observed facial movement corresponds to action unit lid tightener, which is associated with anger and an overall negative emotion."}
