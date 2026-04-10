@@ -1,13 +1,14 @@
 # MEGC: Micro-Expression Grand Challenge 2026
 
-This repository contains a hierarchical Mixture of Experts (MoE) architecture for Visual Question Answering (VQA) on micro-expressions from the MEGC datasets (CASME2, SAMM, SMIC).
+
+This repository contains the official PyTorch implementation for the paper **"CQ-MoE: CLIP-Aligned Question-Conditioned Mixture-of-Experts for Micro-Expression Visual Question Answering"**, submitted to the Micro-Expression Grand Challenge (MEGC) 2026.
 
 ## Overview
 
-The project implements a two-stage training pipeline:
+We propose **CQ-MoE**, a lightweight and parameter-efficient two-stage framework that completely circumvents the need for massive Multimodal Large Language Models (MLLMs):
 
-1. **Stage 1: CLIP Alignment** - Pre-train vision encoders using CLIP-based contrastive learning
-2. **Stage 2: Hierarchical MoE** - Train a hierarchical mixture of experts model for VQA tasks
+1. **Stage 1: CLIP Alignment** - Pre-trains vision encoders using multi-stream visual inputs (apex frames, optical flow, AU regions) with CLIP-based contrastive learning.
+2. **Stage 2: Hierarchical MoE** - A question-conditioned routing mechanism that dynamically directs queries to structurally specialized experts, utilizing a candidate-based multimodal matching strategy to eliminate text hallucination.
 
 ### Key Features
 
@@ -233,6 +234,15 @@ DATASET_CONFIG = {
     },
     # ... rest of config
 }
+```
+
+## Training and Evaluation (How to Run)
+
+Ensure your datasets and configuration in `config.py` are correctly set up before running the scripts.
+
+To train both Stage 1 (CLIP Alignment) and Stage 2 (Hierarchical MoE) sequentially:
+```bash
+python main.py
 ```
 
 ### Using Environment Variables
