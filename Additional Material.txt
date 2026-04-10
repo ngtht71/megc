@@ -1,0 +1,20 @@
+Pre-trained Models
+
+We provide pre-trained checkpoints for both stages of the model trained on CASME2, SAMM, and SMIC datasets.
+
+Download pre-trained Checkpoints
+
+You can download the pre-trained models checkpoints from Google Drive:
+
+**Google Drive (checkpoints):** https://drive.google.com/drive/folders/1pCcKMU3QvcM9APbDjV-zfgesc2sqyy2U?usp=sharing
+
+Project source code is hosted on GitHub:
+
+**GitHub repo:** https://github.com/ngtht71/megc
+
+Checkpoint contents:
+
+- `best_visual_encoder.pth` - Pre-trained CLIP visual encoder (Stage 1)
+- `best_moe_megc.pth` - Trained Hierarchical MoE model (Stage 2)
+
+Place downloaded `.pth` files in the `checkpoints/` directory before running training or inference.

@@ -257,7 +257,7 @@ Each sample should contain:
 - **apex**: Reference apex frame image
 - **onset**: Onset frame image
 - **flow**: Pre-computed optical flow image
-- **roi_paths**: List of Action Unit ROI images (typically 14-17 images)
+- **roi_paths**: List of Action Unit ROI images
 - **au_list**: List of action unit names
 - **emotion**: Fine-grained emotion label
 - **coarse**: Coarse emotion label (positive/negative/surprise)
@@ -292,11 +292,7 @@ We provide pre-trained checkpoints for both stages of the model trained on CASME
 You can download the pre-trained models from Google Drive:
 
 **[Download Pre-trained Models](https://drive.google.com/drive/folders/1pCcKMU3QvcM9APbDjV-zfgesc2sqyy2U?usp=sharing)**
-
-The folder contains:
-- `best_visual_encoder.pth` - Pre-trained CLIP visual encoder (Stage 1)
-- `best_moe_megc.pth` - Trained Hierarchical MoE model (Stage 2)
-
+ 
 ### Setup Pre-trained Models
 
 1. **Download the checkpoint files** from the Google Drive link above
@@ -327,8 +323,8 @@ After training your model, evaluation metrics are automatically computed on the 
 
 - **UF1 (Coarse)**: Unweighted F1-Score for Coarse Emotion Classification (positive/negative/surprise)
 - **UAR (Coarse)**: Unweighted Recall for Coarse Emotion (macro-averaged)
-- **UF1 (Fine-grained)**: Unweighted F1-Score for Fine-grained Emotion (7 classes)
-- **UAR (Fine-grained)**: Unweighted Recall for Fine-grained Emotion
+- **UF1 (Fine-grained)**: Unweighted F1-Score for fine-grained emotion
+- **UAR (Fine-grained)**: Unweighted Recall for fine-grained emotion
 - **BLEU**: Bilingual Evaluation Understudy - measures text generation quality
 - **ROUGE**: Recall-Oriented Understudy for Gisting - measures text matching quality
 
@@ -342,7 +338,7 @@ The model supports the following VQA tasks:
 - **coarse**: Coarse emotion ("What is the coarse emotion?")
 - **joint**: Combined analysis ("Please analyze the micro-expression in detail")
 - **location**: Spatial localization ("Is this on the left or right?")
-- **au_yes_no**: AU presence ("Is AU12 shown on the face?")
+- **au_yes_no**: AU presence ("Is inner brow raiser shown on the face?")
 
 ## Model Architecture Details
 
@@ -390,12 +386,7 @@ The model is evaluated using:
 
 ### Detailed Evaluation Results
 
-See **[EVALUATION_RESULTS.md](EVALUATION_RESULTS.md)** for comprehensive metrics including:
-- Validation and test set results for each dataset (CASME2, SAMM, SMIC)
-- Task-wise breakdown (AU detection, coarse emotion, fine-grained emotion)
-- Per-class performance metrics
-- Computational performance analysis
-- Detailed comparison across different methods
+See **[EVALUATION_RESULTS.md](EVALUATION_RESULTS.md)** for comprehensive metrics.
 
 ### Troubleshooting
 
