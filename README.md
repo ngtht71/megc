@@ -1,7 +1,7 @@
-# MEGC: Micro-Expression Grand Challenge 2026
+# CQ-MoE: CLIP-Aligned Question-Conditioned Mixture-of-Experts for Micro-Expression Visual Question Answering
 
 
-This repository contains the official PyTorch implementation for the paper **"CQ-MoE: CLIP-Aligned Question-Conditioned Mixture-of-Experts for Micro-Expression Visual Question Answering"**, submitted to the Micro-Expression Grand Challenge (MEGC) 2026.
+This repository contains the official PyTorch implementation for the paper **"CQ-MoE: CLIP-Aligned Question-Conditioned Mixture-of-Experts for Micro-Expression Visual Question Answering"**.
 
 ## Overview
 
